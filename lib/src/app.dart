@@ -122,7 +122,7 @@ class AppState extends State<App> {
 
   void fetchType(String type) async {
     pr.style(message: "Loading $type");
-    pr.show();
+    await pr.show();
     final response = await get("http://amlavati.com/sqltutorial/v1/$type");
     //  debugger();
     //  debugPrint("response::" + response.body.toString());
@@ -130,7 +130,7 @@ class AppState extends State<App> {
       final dataModel =
           json.decode(response.body); //["jokes"] as List; // response.body;
       final list = dataModel["$type"] as List;
-      if (pr.isShowing()) pr.hide();
+      if (pr.isShowing()) await pr.hide();
       setState(() {
         if (!type.startsWith("interview")) {
           jokesFactsList =
@@ -147,6 +147,5 @@ class AppState extends State<App> {
 // then throw an exception.
       throw Exception('Failed to load album');
     }
-
   }
 }
